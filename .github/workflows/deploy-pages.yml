@@ -31,6 +31,8 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          VITE_BACKEND_BASE_URL: ${{ vars.VITE_BACKEND_BASE_URL }}
         run: npm run build -- --base=/${{ github.event.repository.name }}/
 
       - name: Setup Pages

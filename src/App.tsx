@@ -23,8 +23,7 @@ type LoadState<T> = { loading: boolean; error: string | null; data: T | null }
 type JsonRecord = Record<string, unknown>
 
 const api = axios.create({
-  baseURL: 'https://fortnite-api.com',
-  headers: { Authorization: import.meta.env.VITE_FORTNITE_API_KEY ?? '' },
+  baseURL: import.meta.env.VITE_BACKEND_BASE_URL ?? 'http://localhost:8787',
 })
 
 const statLabels = [
@@ -51,7 +50,7 @@ const navItems = [
 ]
 
 function App() {
-  const keyMissing = !import.meta.env.VITE_FORTNITE_API_KEY
+  const backendMissing = !import.meta.env.VITE_BACKEND_BASE_URL
 
   return (
     <main className="app-shell with-sidebar">
@@ -70,10 +69,10 @@ function App() {
       </aside>
 
       <div className="main-content">
-        {keyMissing ? (
+        {backendMissing ? (
           <section className="warning">
             <KeyRound size={16} />
-            Missing `VITE_FORTNITE_API_KEY` in `.env.local`
+            Missing `VITE_BACKEND_BASE_URL` in `.env.local`
           </section>
         ) : null}
 
